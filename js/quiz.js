@@ -1,6 +1,9 @@
 // js/quiz.js
-const QUIZ_TOTAL_COUNT = 20; // 📍 총 문제 수
-// const LS_FINAL_SCORE = 'quizFinalScore';
+
+const QUIZ_TOTAL_COUNT = 20; // 📍 총 문제 수 (const 중복 선언 방지)
+const YOUTUBE_VIDEO_ID_2 = "2xxNtPi_-Sw"; // 📍 퀴즈 결과 후 재생할 유튜브 영상 ID (main.js에서 가져와야 하지만, 임시로 여기에도 정의)
+const LS_USER_NAME = 'quizUserName'; // main.js와 통일
+const LS_START_TIME = 'quizStartTime'; // main.js와 통일
 
 const quizData = [
     {
@@ -134,19 +137,25 @@ function initQuizPage() {
     const quizContent = document.getElementById('quiz-content');
     if (!quizContent) return; // 페이지가 quiz.html이 아니면 종료
 
+    // quiz.html에서만 실행될 때 퀴즈 시작 시간 기록
+    if (!localStorage.getItem(LS_START_TIME)) {
+        localStorage.setItem(LS_START_TIME, Date.now());
+    }
+
     loadQuiz(currentQuizIndex);
 
     // 사운드 재생 버튼 이벤트
-    document.getElementById('sound-btn').onclick = playCurrentSound;
+    const soundButton = document.getElementById('sound-button');
+    if (soundButton) {
+        soundButton.onclick = playCurrentSound;
+    }
     
     // 선택 완료 버튼 이벤트
-    document.getElementById('complete-selection-button').onclick = handleSelectionComplete;
+    const completeButton = document.getElementById('complete-selection-button');
+    if (completeButton) {
+        completeButton.onclick = handleSelectionComplete;
+    }
 }
-
-// -------------------- 퀴즈 로드 및 UI 업데이트 --------------------
-
-// js/quiz.js 파일 내
-// ... (생략: QUIZ_TOTAL_COUNT, quizData, 변수 선언 등)
 
 // -------------------- 퀴즈 로드 및 UI 업데이트 --------------------
 
@@ -155,8 +164,7 @@ function loadQuiz(index) {
     if (index >= QUIZ_TOTAL_COUNT) {
         // 1. 퀴즈가 모두 끝났을 경우
         
-        // 최종 점수를 로컬 스토리지에 저장합니다.
-        // (이전에 'userScore'를 사용하기로 했으므로, 변수명 통일)
+        // 최종 점수를 로컬 스토리지에 저장합니다. (userScore 통일)
         localStorage.setItem('userScore', score); 
 
         // 2. 퀴즈 종료 후, 2번 유튜브 영상(YOUTUBE_VIDEO_ID_2)을 재생하는 페이지로 이동합니다.
@@ -165,23 +173,16 @@ function loadQuiz(index) {
         return; // 함수 종료
     }
     
-    // ... (이하 기존 loadQuiz 함수 코드 유지)
-    // ----------------------------------------------------
-    const currentQuiz = quizData[index];
-    currentQuizIndex = index;
-    selectedOptionIndex = null;
-    // ... (이하 기존 코드 유지)
-    
-}
-
-// ... (이하 나머지 함수들: playCurrentSound, handleOptionSelection, handleSelectionComplete 등 유지)
-    
     const currentQuiz = quizData[index];
     currentQuizIndex = index;
     selectedOptionIndex = null;
 
     // 상태 표시 업데이트
-    document.getElementById('quiz-status').textContent = `문제 ${index + 1} / ${QUIZ_TOTAL_COUNT}`;
+    const statusElement = document.getElementById('quiz-status');
+    if (statusElement) {
+        statusElement.textContent = `문제 ${index + 1} / ${QUIZ_TOTAL_COUNT}`;
+    }
+    
     document.getElementById('question-text').textContent = currentQuiz.q;
 
     // 보기 버튼 업데이트
@@ -196,9 +197,12 @@ function loadQuiz(index) {
     });
 
     // 선택 완료 버튼 비활성화
-    document.getElementById('complete-selection-button').disabled = true;
+    const completeButton = document.getElementById('complete-selection-button');
+    if (completeButton) {
+        completeButton.disabled = true;
+    }
     
-    // 사운드 재생
+    // 퀴즈 로드 시 사운드 자동 재생
     playCurrentSound();
 }
 
@@ -222,7 +226,10 @@ function handleOptionSelection(selectedButton, index) {
     selectedOptionIndex = index;
 
     // 선택 완료 버튼 활성화
-    document.getElementById('complete-selection-button').disabled = false;
+    const completeButton = document.getElementById('complete-selection-button');
+    if (completeButton) {
+        completeButton.disabled = false;
+    }
 }
 
 function handleSelectionComplete() {
@@ -244,10 +251,6 @@ function handleSelectionComplete() {
 document.addEventListener('DOMContentLoaded', () => {
     // quiz.html에서만 실행
     if (window.location.pathname.split('/').pop() === 'quiz.html') {
-        // 퀴즈 데이터가 20개인지 확인 (개발 편의를 위한 임시 검사)
-        if (quizData.length !== QUIZ_TOTAL_COUNT) {
-             console.warn(`[경고] 퀴즈 데이터가 ${QUIZ_TOTAL_COUNT}개가 아닙니다. 현재: ${quizData.length}개`);
-        }
         
         // 이름이 없으면 인트로로 이동 (강제성 부여)
         if (!localStorage.getItem(LS_USER_NAME)) {
@@ -258,6 +261,4 @@ document.addEventListener('DOMContentLoaded', () => {
         
         initQuizPage();
     }
-
 });
-
