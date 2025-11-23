@@ -1,9 +1,8 @@
-// js/quiz.js
-
-const QUIZ_TOTAL_COUNT = 20; // 📍 총 문제 수 (const 중복 선언 방지)
-const YOUTUBE_VIDEO_ID_2 = "2xxNtPi_-Sw"; // 📍 퀴즈 결과 후 재생할 유튜브 영상 ID (main.js에서 가져와야 하지만, 임시로 여기에도 정의)
-const LS_USER_NAME = 'quizUserName'; // main.js와 통일
-const LS_START_TIME = 'quizStartTime'; // main.js와 통일
+// js/quiz.js 상단
+const QUIZ_TOTAL_COUNT = 20; // 📍 총 문제 수
+// const YOUTUBE_VIDEO_ID_2 = "2xxNtPi_-Sw"; // 📍 이 줄을 제거하세요. (main.js에서만 정의)
+const LS_USER_NAME = 'quizUserName'; 
+const LS_START_TIME = 'quizStartTime';
 
 const quizData = [
     {
@@ -208,8 +207,10 @@ return; // 함수 종료
 
 // -------------------- 이벤트 처리 --------------------
 
+// js/quiz.js
 function playCurrentSound() {
-    const soundPath = `assets/sounds/${quizData[currentQuizIndex].sound}`;
+    // 🚨 경로 앞에 슬래시(/)를 추가하여 루트 경로(quiz-project/)에서 시작하도록 수정
+    const soundPath = `/assets/sounds/${quizData[currentQuizIndex].sound}`;
     const audio = new Audio(soundPath);
     // 버튼 UI 업데이트는 선택 사항입니다. 간단히 소리만 재생합니다.
     audio.play().catch(e => console.error("Sound play failed:", e));
@@ -262,4 +263,5 @@ document.addEventListener('DOMContentLoaded', () => {
         initQuizPage();
     }
 });
+
 
