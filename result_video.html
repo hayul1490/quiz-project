@@ -8,6 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* 비디오 플레이어를 중앙에 배치하고 화면에 꽉 차게 보이도록 하는 CSS */
+        body {
+            margin: 0;
+            overflow: hidden; /* 스크롤바 제거 */
+        }
         #video-container {
             display: flex;
             justify-content: center;
@@ -42,12 +46,15 @@
 
         // 2. API 코드 다운로드 완료 시 onYouTubeIframeAPIReady 함수 호출
         function onYouTubeIframeAPIReady() {
+            // main.js의 getQueryParam 함수 사용
             const videoQueryParam = getQueryParam('video');
-            let videoId = YOUTUBE_VIDEO_ID_1; // 기본값은 인트로 후 영상
+            let videoId;
 
-            // 쿼리 파라미터에 따라 사용할 영상 ID 결정
+            // 쿼리 파라미터에 따라 사용할 영상 ID 결정 (main.js에 정의된 상수 사용)
             if (videoQueryParam === 'result') {
                 videoId = YOUTUBE_VIDEO_ID_2; // 퀴즈 결과 후 영상
+            } else {
+                videoId = YOUTUBE_VIDEO_ID_1; // 인트로 후 영상 (smore_intro.html -> result_video.html로 이동할 때 사용)
             }
 
             player = new YT.Player('player', {
@@ -56,9 +63,10 @@
                 videoId: videoId,
                 playerVars: {
                     'autoplay': 1,      // 자동 재생
-                    'controls': 1,      // 컨트롤 표시
+                    'controls': 0,      // 컨트롤 표시하지 않음 (전체 화면 인터랙션 유지 위함)
                     'modestbranding': 1, // YouTube 로고 축소
-                    'rel': 0            // 관련 동영상 표시 안 함
+                    'rel': 0,           // 관련 동영상 표시 안 함
+                    'fs': 1             // 전체 화면 버튼 표시
                 },
                 events: {
                     'onReady': onPlayerReady,
@@ -72,6 +80,14 @@
             event.target.playVideo();
         }
 
-        // 4. 플레이어 상태 변경 시 호출 (핵심 로직)
+        // 4. 플레이어 상태 변경 시 호출 (핵심: 영상 종료 시 다음 페이지로 이동)
         function onPlayerStateChange(event) {
-            // 상태 코드가 0 (YT.PlayerState.ENDED)이면
+            // 상태 코드가 0 (YT.PlayerState.ENDED)이면, 영상 재생이 끝난 것임
+            if (event.data === YT.PlayerState.ENDED) {
+                // main.js에 정의된 다음 페이지 이동 함수 호출
+                window.handleVideoComplete();
+            }
+        }
+    </script>
+</body>
+</html>
