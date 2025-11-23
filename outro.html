@@ -10,30 +10,39 @@
 <body>
     <div id="outro-page" class="full-screen">
         <div id="outro-content">
-            <h1 class="title">🎉 퀴즈 완료! 최종 결과입니다 🎉</h1>
-            <p id="user-final-message" class="subtitle"></p>
-            <p id="final-score" class="result-text"></p>
-            <p id="final-time" class="result-text"></p>
-
-            <h2 class="section-title">🏆 명예의 전당 랭킹 🏆</h2>
-            <div id="ranking-container">
-                <table id="ranking-table">
-                    <thead>
-                        <tr>
-                            <th>순위</th>
-                            <th>이름</th>
-                            <th>점수</th>
-                            <th>시간</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ranking-body">
-                        </tbody>
-                </table>
-            </div>
-            <button id="restart-button" class="main-button">다시 시작하기</button>
+            <div id="outro-page" class="full-screen">
+    <div id="outro-content">
+        <h1 class="title">🎉 퀴즈 완료! 최종 결과입니다 🎉</h1>
+        
+        <p class="result-text" id="user-name-display">로딩 중...</p>
+        <p class="result-text" id="final-score-display">최종 점수: 0 / 20</p>
+        <p class="result-text" id="time-taken-display">소요 시간: 로딩 중...</p>
+        
+        <h2 class="section-title">🏆 명예의 전당 랭킹 🏆</h2>
+        
+        <div class="ranking-container">
+            <table id="ranking-table">
+                <thead>
+                    <tr>
+                        <th>순위</th>
+                        <th>이름</th>
+                        <th>점수</th>
+                        <th>시간</th>
+                    </tr>
+                </thead>
+                <tbody id="ranking-body">
+                    </tbody>
+            </table>
         </div>
+        
+        <button id="restart-button" class="main-button">다시 시작하기</button>
+        
+    </div>
+</div>
+<script src="js/main.js"></script>
     </div>
     <script src="js/main.js"></script>
     <script src="js/outro.js"></script>
 </body>
 </html>
+
