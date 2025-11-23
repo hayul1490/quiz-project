@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>최종 결과 및 랭킹</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="outro-page" class="container">
+        <h1>🎉 퀴즈 완료! 최종 결과입니다 🎉</h1>
+        
+        <div id="result-summary">
+            <h2><span id="user-name-display">이름</span> 님, 축하합니다!</h2>
+            <p>최종 점수: <strong id="score-display">0 / 20</strong></p>
+            <p>소요 시간: <strong id="time-display">0분 0초</strong></p>
+        </div>
+        
+        <hr>
+
+        <h2>🏆 명예의 전당 랭킹 🏆</h2>
+        <table id="ranking-table">
+            <thead>
+                <tr>
+                    <th>순위</th>
+                    <th>이름</th>
+                    <th>점수</th>
+                    <th>시간</th>
+                </tr>
+            </thead>
+            <tbody id="ranking-body">
+                </tbody>
+        </table>
+    </div>
+
+    <script src="js/outro.js"></script>
+</body>
+</html>
