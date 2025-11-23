@@ -1,6 +1,6 @@
 // js/outro.js
-const LS_USER_NAME = 'quizUserName';
-const LS_START_TIME = 'quizStartTime';
+// const LS_USER_NAME = 'quizUserName';
+// const LS_START_TIME = 'quizStartTime';
 const LS_RANKING = 'quizRanking';
 const QUIZ_TOTAL_COUNT = 20; // quiz.js와 동일하게 유지
 
@@ -78,3 +78,4 @@ function saveAndDisplayRanking(userName, score, time) {
         row.insertCell(3).textContent = formatTime(entry.time);
     });
 }
+
