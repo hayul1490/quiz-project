@@ -160,6 +160,15 @@ function initQuizPage() {
 // -------------------- 퀴즈 로드 및 UI 업데이트 --------------------
 
 function loadQuiz(index) {
+    if (index >= QUIZ_TOTAL_COUNT) {
+        // 1. 🚨 [필수 확인] 최종 점수를 로컬 스토리지에 저장 (이 부분이 누락되면 랭킹에 점수 0점 반영)
+        // score 변수는 퀴즈를 진행하면서 누적된 최종 점수여야 합니다.
+        localStorage.setItem('userScore', score); // 👈 score 변수가 전역에 선언되어야 합니다.
+        
+        // 2. 퀴즈 종료 후, 2번 유튜브 영상 페이지로 이동합니다.
+        window.location.href = `result_video.html?video=${YOUTUBE_VIDEO_ID_2}&nextPage=outro.html`;
+        return; 
+    }
     // 🚨 [수정] 퀴즈가 로드될 때 이전 오디오를 정지시켜야 합니다.
     if (currentAudio) {
         currentAudio.pause();
@@ -280,6 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initQuizPage();
     }
 });
+
 
 
 
