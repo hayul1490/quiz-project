@@ -3,12 +3,12 @@
 const QUIZ_TOTAL_COUNT = 20; // 📍 총 문제 수
 let currentAudio = null; // 📍 현재 재생 중인 오디오 객체를 저장할 변수
 
-// 🚨 [수정] main.js의 전역 상수(LS_USER_NAME, LS_START_TIME, YOUTUBE_VIDEO_ID_2)를 사용합니다.
-// 🚨 [제거] 해당 변수들의 const 선언을 제거했습니다.
+// 🚨 [제거] main.js와 중복되는 모든 상수 선언을 제거했습니다.
+// LS_USER_NAME, LS_START_TIME, FINAL_VIDEO_ID 등의 const 선언은 이제 없습니다.
 
 const quizData = [
     // ... (퀴즈 데이터는 그대로 유지)
-     {
+    {
 
         q: "첫 번째 사운드는 '굵은 나뭇가지가 서로 부딪히는 소리'입니다. 이 소리를 나타내는 가장 적절한 상황은 무엇일까요?",
 
@@ -258,20 +258,18 @@ function initQuizPage() {
     const quizContent = document.getElementById('quiz-content');
     if (!quizContent) return; 
 
-    // quiz.html에서만 실행될 때 퀴즈 시작 시간 기록 (main.js의 전역 상수 LS_START_TIME 사용)
-    if (!localStorage.getItem(LS_START_TIME)) {
-        localStorage.setItem(LS_START_TIME, Date.now());
+    // 🚨 [수정] LS_START_TIME 대신 문자열 리터럴 'quizStartTime' 사용
+    if (!localStorage.getItem('quizStartTime')) {
+        localStorage.setItem('quizStartTime', Date.now());
     }
 
     loadQuiz(currentQuizIndex);
 
-    // 사운드 재생 버튼 이벤트
     const soundButton = document.getElementById('sound-button');
     if (soundButton) {
         soundButton.onclick = playCurrentSound;
     }
     
-    // 선택 완료 버튼 이벤트
     const completeButton = document.getElementById('complete-selection-button');
     if (completeButton) {
         completeButton.onclick = handleSelectionComplete;
@@ -285,16 +283,16 @@ function loadQuiz(index) {
     // 퀴즈 완료 조건 검사
     if (index >= QUIZ_TOTAL_COUNT) {
         
-        // 1. 최종 점수를 로컬 스토리지에 저장
+        // 1. 최종 점수를 로컬 스토리지에 저장 (LS_USER_SCORE 대신 문자열 'userScore' 사용)
         localStorage.setItem('userScore', score); 
         
-        // 2. 🚨 [수정] 퀴즈 종료 후, main.js의 YOUTUBE_VIDEO_ID_2를 사용하여 영상 페이지로 이동
-        window.location.href = `result_video.html?video=${YOUTUBE_VIDEO_ID_2}&nextPage=outro.html`;
+        // 2. 🚨 [수정] YouTube ID (main.js에서 "DvP6qr1u5ac")를 문자열 리터럴로 직접 사용
+        const YOUTUBE_ID = "DvP6qr1u5ac";
+        window.location.href = `result_video.html?video=${YOUTUBE_ID}&nextPage=outro.html`;
         
         return; 
     }
     
-    // 퀴즈 로직은 그대로 유지...
     if (currentAudio) {
         currentAudio.pause();
         currentAudio.currentTime = 0;
