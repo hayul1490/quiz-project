@@ -1,6 +1,6 @@
 // js/quiz.js
 const QUIZ_TOTAL_COUNT = 20; // 📍 총 문제 수
-const LS_FINAL_SCORE = 'quizFinalScore';
+// const LS_FINAL_SCORE = 'quizFinalScore';
 
 const quizData = [
     {
@@ -145,13 +145,36 @@ function initQuizPage() {
 
 // -------------------- 퀴즈 로드 및 UI 업데이트 --------------------
 
+// js/quiz.js 파일 내
+// ... (생략: QUIZ_TOTAL_COUNT, quizData, 변수 선언 등)
+
+// -------------------- 퀴즈 로드 및 UI 업데이트 --------------------
+
 function loadQuiz(index) {
+    // 퀴즈 완료 조건 검사
     if (index >= QUIZ_TOTAL_COUNT) {
-        // 20문제 완료
-        localStorage.setItem(LS_FINAL_SCORE, score);
-        window.location.href = `result_video.html?video_id=${YOUTUBE_VIDEO_ID_2}&next_page=info_image.html`;
-        return;
+        // 1. 퀴즈가 모두 끝났을 경우
+        
+        // 최종 점수를 로컬 스토리지에 저장합니다.
+        // (이전에 'userScore'를 사용하기로 했으므로, 변수명 통일)
+        localStorage.setItem('userScore', score); 
+
+        // 2. 퀴즈 종료 후, 2번 유튜브 영상(YOUTUBE_VIDEO_ID_2)을 재생하는 페이지로 이동합니다.
+        //    영상 재생 후 3초 뒤에 'outro.html' (결과 페이지)로 넘어가도록 경로를 지정합니다.
+        window.location.href = `result_video.html?videoId=${YOUTUBE_VIDEO_ID_2}&nextPage=outro.html`;
+        return; // 함수 종료
     }
+    
+    // ... (이하 기존 loadQuiz 함수 코드 유지)
+    // ----------------------------------------------------
+    const currentQuiz = quizData[index];
+    currentQuizIndex = index;
+    selectedOptionIndex = null;
+    // ... (이하 기존 코드 유지)
+    
+}
+
+// ... (이하 나머지 함수들: playCurrentSound, handleOptionSelection, handleSelectionComplete 등 유지)
     
     const currentQuiz = quizData[index];
     currentQuizIndex = index;
@@ -237,3 +260,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+
