@@ -1,10 +1,11 @@
 // js/main.js
-const YOUTUBE_VIDEO_ID_1 = "DvP6qr1u5ac"; // 📍 인트로 후 재생할 유튜브 영상 ID
-const YOUTUBE_VIDEO_ID_2 = "DvP6qr1u5ac"; // 📍 퀴즈 결과 후 재생할 유튜브 영상 ID
+const YOUTUBE_VIDEO_ID_1 = "DvP6qr1u5ac"; // 📍 인트로 후 재생할 유튜브 영상 ID (유효 ID 적용)
+const YOUTUBE_VIDEO_ID_2 = "DvP6qr1u5ac"; // 📍 퀴즈 결과 후 재생할 유튜브 영상 ID (유효 ID 적용)
 
-// 로컬 스토리지 키
+// 로컬 스토리지 키 (다른 파일과 중복 선언 금지)
 const LS_USER_NAME = 'quizUserName';
 const LS_START_TIME = 'quizStartTime';
+const LS_RANKING_DATA = 'quizRankingData'; // 랭킹 키도 main.js에서만 정의
 
 document.addEventListener('DOMContentLoaded', () => {
     const introPage = document.getElementById('intro-page');
@@ -30,8 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
-// js/main.js 파일 맨 끝에 추가
 
 // -------------------- 영상 페이지 처리 --------------------
 
@@ -65,7 +64,6 @@ function handleQuizStart() {
 }
 
 // 랭킹 저장 및 가져오기 로직 (outro.html 용)
-const LS_RANKING_DATA = 'quizRankingData';
 
 function loadAndDisplayRanking() {
     // 1. 현재 사용자 점수 및 시간 로드
@@ -85,33 +83,38 @@ function loadAndDisplayRanking() {
 
     // 2. 최종 결과 표시
     const timeFormatted = formatTime(elapsedTimeMs);
-    document.getElementById('user-name-display').textContent = `${userName} 님, 축하합니다!`;
-    document.getElementById('final-score-display').textContent = `최종 점수: ${finalScore} / 20`;
-    document.getElementById('time-taken-display').textContent = `소요 시간: ${timeFormatted}`;
+    const userNameDisplay = document.getElementById('user-name-display');
+    const finalScoreDisplay = document.getElementById('final-score-display');
+    const timeTakenDisplay = document.getElementById('time-taken-display');
+
+    if(userNameDisplay) userNameDisplay.textContent = `${userName} 님, 축하합니다!`;
+    if(finalScoreDisplay) finalScoreDisplay.textContent = `최종 점수: ${finalScore} / 20`;
+    if(timeTakenDisplay) timeTakenDisplay.textContent = `소요 시간: ${timeFormatted}`;
 
     // 3. 랭킹 데이터 로드
     let rankingData = JSON.parse(localStorage.getItem(LS_RANKING_DATA) || '[]');
 
-    // 4. 현재 사용자 점수를 랭킹에 추가 (이미 있으면 업데이트 방지)
+    // 4. 현재 사용자 점수를 랭킹에 추가 또는 업데이트 (중복 방지 및 최고 기록 반영)
     const newEntry = {
         name: userName,
         score: finalScore,
         time: elapsedTimeMs
     };
-
+    
+    // 🚨 [수정된 로직] 중복 확인 및 최고 기록 업데이트
     const existingIndex = rankingData.findIndex(item => item.name === userName);
 
     if (existingIndex > -1) {
-    // 이미 존재하는 경우: 더 좋은 기록이면 업데이트 (점수가 높고, 점수가 같으면 시간이 짧은 경우)
-    const existingEntry = rankingData[existingIndex];
-    if (finalScore > existingEntry.score || 
-        (finalScore === existingEntry.score && elapsedTimeMs < existingEntry.time)) {
-        rankingData[existingIndex] = newEntry; // 더 좋은 기록으로 업데이트
+        const existingEntry = rankingData[existingIndex];
+        // 점수가 더 높거나, 점수는 같지만 시간이 더 짧은 경우에만 업데이트
+        if (finalScore > existingEntry.score || 
+            (finalScore === existingEntry.score && elapsedTimeMs < existingEntry.time)) {
+            rankingData[existingIndex] = newEntry; // 더 좋은 기록으로 업데이트
+        }
+    } else {
+        // 존재하지 않는 경우: 새로운 항목으로 추가
+        rankingData.push(newEntry);
     }
-} else {
-    // 존재하지 않는 경우: 새로운 항목으로 추가
-    rankingData.push(newEntry);
-}
 
     // 5. 랭킹 정렬 (점수 내림차순, 시간이 짧은 순으로 오름차순)
     rankingData.sort((a, b) => {
@@ -140,20 +143,17 @@ function loadAndDisplayRanking() {
             // 시간
             row.insertCell().textContent = formatTime(item.time);
 
-            // 현재 사용자 강조 (선택 사항)
+            // 현재 사용자 강조
             if (item.name === userName && item.time === elapsedTimeMs) {
-                 row.style.backgroundColor = '#FFF8E1'; // 연한 노란색 배경
+                row.style.backgroundColor = '#FFF8E1'; 
             }
         });
     }
 }
 
-// js/main.js 파일 맨 끝에 추가
-
 // 각 페이지가 로드될 때 실행할 함수
 document.addEventListener('DOMContentLoaded', () => {
-    // (기존 introPage 처리 로직은 여기에 유지)
-
+    
     // Smore 인트로 페이지: 퀴즈 시작 버튼 이벤트 연결
     if (window.location.pathname.includes('smore_intro.html')) {
         const startQuizButton = document.getElementById('start-quiz-button');
@@ -164,12 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 결과 영상 페이지: 영상 완료 후 다음 페이지로 이동
     if (window.location.pathname.includes('result_video.html')) {
-        // result_video.html의 비디오 플레이어 로직에서 handleVideoComplete()를 호출해야 합니다.
-        // 이 함수를 전역에서 접근할 수 있도록 준비해 둡니다.
         window.handleVideoComplete = handleVideoComplete;
-        
-        // 🚨 중요: result_video.html에서 YouTube Player API를 사용하여 
-        // 영상이 끝났을 때 handleVideoComplete()를 호출하도록 구현해야 합니다.
     }
 
     // 최종 결과 페이지: 랭킹 표시
@@ -186,6 +181,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
-
-
-
