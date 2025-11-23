@@ -1,14 +1,18 @@
 // js/quiz.js 상단
 const QUIZ_TOTAL_COUNT = 20; // 📍 총 문제 수
 let currentAudio = null; // 📍 현재 재생 중인 오디오 객체를 저장할 변수
-// const YOUTUBE_VIDEO_ID_2 = "2xxNtPi_-Sw"; // 📍 이 줄을 제거하세요. (main.js에서만 정의)
+
+// 로컬 스토리지 키 (main.js에서 가져와 사용)
 const LS_USER_NAME = 'quizUserName'; 
 const LS_START_TIME = 'quizStartTime';
+
+// 🚨 [필수 확인] YouTube ID를 직접 사용 (ReferenceError 해결)
+const FINAL_VIDEO_ID = "DvP6qr1u5ac"; // main.js에서 가져온 ID를 직접 사용
 
 const quizData = [
     {
         q: "첫 번째 사운드는 '굵은 나뭇가지가 서로 부딪히는 소리'입니다. 이 소리를 나타내는 가장 적절한 상황은 무엇일까요?",
-        sound: "q1.mp3", // 📍 여기에 실제 q1.mp3 파일을 넣어야 합니다.
+        sound: "q1.mp3", 
         options: ["굵은 나뭇가지 충돌음", "잔가지가 바람에 흔들리는 소리", "나무를 톱으로 자르는 소리", "나무 통을 손바닥으로 치는 소리"],
         answerIndex: 0 
     },
@@ -135,9 +139,9 @@ let selectedOptionIndex = null;
 
 function initQuizPage() {
     const quizContent = document.getElementById('quiz-content');
-    if (!quizContent) return; // 페이지가 quiz.html이 아니면 종료
+    if (!quizContent) return; 
 
-    // quiz.html에서만 실행될 때 퀴즈 시작 시간 기록
+    // quiz.html에서만 실행될 때 퀴즈 시작 시간 기록 (index.html에서 이미 기록했을 수도 있음)
     if (!localStorage.getItem(LS_START_TIME)) {
         localStorage.setItem(LS_START_TIME, Date.now());
     }
@@ -160,32 +164,23 @@ function initQuizPage() {
 // -------------------- 퀴즈 로드 및 UI 업데이트 --------------------
 
 function loadQuiz(index) {
-    if (index >= QUIZ_TOTAL_COUNT) {
-        // 1. 🚨 [필수 확인] 최종 점수를 로컬 스토리지에 저장 (이 부분이 누락되면 랭킹에 점수 0점 반영)
-        // score 변수는 퀴즈를 진행하면서 누적된 최종 점수여야 합니다.
-        localStorage.setItem('userScore', score); // 👈 score 변수가 전역에 선언되어야 합니다.
-        
-        // 2. 퀴즈 종료 후, 2번 유튜브 영상 페이지로 이동합니다.
-        window.location.href = `result_video.html?video=${YOUTUBE_VIDEO_ID_2}&nextPage=outro.html`;
-        return; 
-    }
-    // 🚨 [수정] 퀴즈가 로드될 때 이전 오디오를 정지시켜야 합니다.
-    if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-    }
     
     // 퀴즈 완료 조건 검사
     if (index >= QUIZ_TOTAL_COUNT) {
-        // 1. 퀴즈가 모두 끝났을 경우
         
-        // 최종 점수를 로컬 스토리지에 저장합니다. (userScore 통일)
+        // 1. 🚨 [필수] 최종 점수를 로컬 스토리지에 저장
         localStorage.setItem('userScore', score); 
-
-        // 2. 퀴즈 종료 후, 2번 유튜브 영상(YOUTUBE_VIDEO_ID_2)을 재생하는 페이지로 이동합니다.
-        //    영상 재생 후 3초 뒤에 'outro.html' (결과 페이지)로 넘어가도록 경로를 지정합니다.
-        window.location.href = `result_video.html?video=result&nextPage=outro.html`;
-return; // 함수 종료
+        
+        // 2. 🚨 [수정] 퀴즈 종료 후, 실제 ID 값을 사용하여 영상 페이지로 이동 (ReferenceError 해결)
+        window.location.href = `result_video.html?video=${FINAL_VIDEO_ID}&nextPage=outro.html`;
+        
+        return; 
+    }
+    
+    // 🚨 [필수] 퀴즈가 로드될 때 이전 오디오를 정지시켜야 합니다.
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
     }
     
     const currentQuiz = quizData[index];
@@ -223,7 +218,6 @@ return; // 함수 종료
 
 // -------------------- 이벤트 처리 --------------------
 
-// js/quiz.js
 function playCurrentSound() {
     // 1. 이전 오디오가 있다면 정지
     if (currentAudio) {
@@ -232,6 +226,7 @@ function playCurrentSound() {
     }
     
     // 2. 새 오디오 객체 생성
+    // 🚨 [필수] GitHub Pages 경로에 맞추어 '/quiz-project'를 포함합니다. (404 해결)
     const soundPath = `/quiz-project/assets/sounds/${quizData[currentQuizIndex].sound}`;
     const audio = new Audio(soundPath);
     
@@ -271,26 +266,4 @@ function handleSelectionComplete() {
         score++;
     }
 
-    // 2. 다음 문제로 이동
-    loadQuiz(currentQuizIndex + 1);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    // quiz.html에서만 실행
-    if (window.location.pathname.split('/').pop() === 'quiz.html') {
-        
-        // 이름이 없으면 인트로로 이동 (강제성 부여)
-        if (!localStorage.getItem(LS_USER_NAME)) {
-            alert('이름 정보가 없어 인트로 페이지로 이동합니다.');
-            window.location.href = 'index.html';
-            return;
-        }
-        
-        initQuizPage();
-    }
-});
-
-
-
-
-
+    // 2.
