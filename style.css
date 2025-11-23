@@ -4,12 +4,12 @@
 
 /* 1. 기본 설정 및 색상 팔레트 */
 :root {
-    --color-primary: #8B4513;     /* 진한 갈색 (제목, 주요 텍스트, 버튼 강조) */
-    --color-secondary: #B8860B;   /* 황금빛 갈색 (액센트, 사운드 버튼) */
+    --color-primary: #8B4513;       /* 진한 갈색 (제목, 주요 텍스트, 버튼 강조) */
+    --color-secondary: #B8860B;    /* 황금빛 갈색 (액센트, 사운드 버튼) */
     --color-background-light: #FAF0E6; /* 연한 베이지 (전체 배경) */
     --color-background-card: #FFFFFF; /* 카드 배경 (흰색) */
-    --color-text-dark: #333333;   /* 매우 진한 텍스트 */
-    --color-border: #D2B48C;      /* 부드러운 테두리 색 */
+    --color-text-dark: #333333;    /* 매우 진한 텍스트 */
+    --color-border: #D2B48C;       /* 부드러운 테두리 색 */
     --font-size-base: 1.15rem;
 }
 
@@ -37,17 +37,17 @@ html, body {
 
 /* 2. 인트로 페이지 스타일 */
 #intro-content {
-    background: rgba(255, 255, 255, 0.95); /* 배경 불투명도 증가 */
-    padding: 50px; /* 패딩 증가 */
+    background: rgba(255, 255, 255, 0.95);
+    padding: 50px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    max-width: 550px; /* 폭 확대 */
+    max-width: 550px;
     width: 90%;
 }
 
 .title {
     color: var(--color-primary);
-    font-size: 2.8rem; /* 제목 크기 확대 */
+    font-size: 2.8rem;
     margin-bottom: 25px;
     font-weight: 800;
 }
@@ -62,7 +62,7 @@ html, body {
     display: flex;
     flex-direction: column; 
     align-items: center;
-    gap: 20px; /* 입력 필드와 버튼 사이 간격 확대 */
+    gap: 20px;
     width: 100%;
 }
 
@@ -71,7 +71,7 @@ html, body {
     font-size: 1.2rem;
     border: 2px solid var(--color-border);
     border-radius: 10px;
-    width: 90%; /* 인풋 필드 폭 넓게 사용 */
+    width: 90%;
     max-width: 400px;
     text-align: center;
     box-sizing: border-box;
@@ -79,17 +79,17 @@ html, body {
 
 /* 3. 공통 버튼 (시작하기, 다시 시작하기, 선택 완료) */
 .main-button {
-    padding: 20px 40px; /* 패딩을 늘려 버튼 크기 매우 확대 */
-    font-size: 1.5rem; /* 폰트 크기 확대 */
+    padding: 20px 40px;
+    font-size: 1.5rem;
     background-color: var(--color-primary); 
     color: white;
     border: none;
     border-radius: 12px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.1s;
-    font-weight: 800; /* 매우 두껍게 */
+    font-weight: 800;
     width: 90%;
-    max-width: 400px; /* 폭 넓게 사용 */
+    max-width: 400px;
     margin-top: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
@@ -100,14 +100,14 @@ html, body {
 }
 
 .main-button:disabled {
-    background-color: #A9A9A9; /* 비활성화 시 회색 */
+    background-color: #A9A9A9;
     cursor: not-allowed;
     box-shadow: none;
 }
 
 /* 4. 퀴즈 페이지 스타일 */
 #quiz-page {
-    max-width: 750px; /* 퀴즈 카드 폭 확대 */
+    max-width: 750px;
     width: 90%;
     margin: 40px auto; 
     padding: 40px;
@@ -135,7 +135,7 @@ html, body {
 }
 
 #question-text {
-    font-size: 1.6rem; /* 퀴즈 질문 크기 확대 */
+    font-size: 1.6rem;
     margin: 25px 0 40px;
     font-weight: 600;
     color: var(--color-text-dark);
@@ -168,14 +168,14 @@ html, body {
 #options-container {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* 버튼 사이 간격 확대 */
+    gap: 15px;
     margin-bottom: 25px;
 }
 
 /* 개별 보기 버튼 */
 .option-btn {
-    padding: 20px; /* 패딩 증가 */
-    font-size: 1.15rem; /* 폰트 크기 확대 */
+    padding: 20px;
+    font-size: 1.15rem;
     background-color: var(--color-background-light); 
     color: var(--color-text-dark);
     border: 1px solid var(--color-border);
@@ -199,10 +199,12 @@ html, body {
 
 /* 선택 완료 버튼 - main-button 스타일 상속, 추가 크기 조정 */
 #complete-selection-button {
+    /* main-button 스타일을 상속받으므로 여기서 추가적인 스타일만 정의 */
     width: 100%;
     max-width: 450px;
     margin-top: 40px; 
 }
+
 
 /* 5. 아웃트로 (결과/랭킹) 페이지 스타일 */
 #outro-content {
@@ -210,7 +212,7 @@ html, body {
     padding: 50px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    max-width: 650px; /* 랭킹 컨테이너 폭 조절 */
+    max-width: 650px;
     width: 90%;
     margin: auto;
 }
@@ -235,7 +237,7 @@ html, body {
     margin-top: 15px;
     border-collapse: separate;
     border-spacing: 0;
-    background: var(--color-background-light); /* 테이블 배경색 변경 */
+    background: var(--color-background-light);
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -243,7 +245,7 @@ html, body {
 
 #ranking-table th, #ranking-table td {
     padding: 15px;
-    text-align: center; /* 테이블 내용 중앙 정렬 */
+    text-align: center;
     border-bottom: 1px solid var(--color-border);
     font-size: 1.05rem;
 }
@@ -271,86 +273,9 @@ html, body {
     #ranking-table th, #ranking-table td { padding: 10px; font-size: 0.9rem; }
 }
 
-/* style.css 파일에 추가/수정 */
-
-/* 전역 버튼 스타일 통일 (main-button, sound-button, complete-button에 적용) */
-.main-button,
-#sound-button,
-#complete-selection-button {
-    /* 퀴즈 시작하기 버튼과 동일한 배경색, 글꼴, 크기 등을 적용 */
-    background-color: #ffc107; /* 예시로 노란색 계열 사용 */
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 25px;
-    font-size: 1.2em;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 90%; /* 너비를 넓게 설정 */
-    margin: 10px auto; /* 중앙 정렬 및 간격 */
-    display: block;
-}
-
-.main-button:hover,
-#sound-button:hover,
-#complete-selection-button:hover:not(:disabled) {
-    background-color: #e0a800; /* 호버 시 색상 어둡게 */
-}
-
-/* 사운드 재생 버튼 (Quiz.html) */
-#sound-button {
-    background-color: #6c757d; /* 사운드 버튼은 다른 색상 사용 (회색 계열) */
-    font-size: 1em;
-    padding: 8px 15px;
-    width: auto; /* 너비 자동 설정 */
-    display: inline-block;
-}
-#sound-button:hover {
-    background-color: #5a6268;
-}
-
-
-/* 선택 완료 버튼 (Quiz.html) */
-#complete-selection-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-    box-shadow: none;
-}
-
-/* style.css 파일에 추가 */
-
-#video-container {
-    /* 화면 전체를 덮지 않도록 중앙 정렬 및 패딩 추가 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px; /* 주변 여백 */
-    /* 필요하다면 최소 높이를 설정할 수 있습니다. */
-    min-height: 100vh; 
-}
-
-#player {
-    /* 영상이 표시될 영역의 최대 크기 설정 */
-    max-width: 800px; /* 예시: 최대 너비를 800px로 제한 */
-    width: 100%; /* 부모(video-container) 너비 내에서 100% 사용 */
-    /* 16:9 비율 유지를 위한 패딩 트릭 */
-    aspect-ratio: 16 / 9; /* 최신 브라우저 지원 (권장) */
-    /* 또는 구형 브라우저 지원을 위해 padding-bottom 사용:
-    padding-bottom: 56.25%; /* 16:9 비율 (9/16 = 0.5625) */
-    /* height: 0; 
-    position: relative; */
-}
-
-/* YouTube 플레이어가 실제로 들어가는 iframe이나 div */
-#player iframe, #player div {
-    width: 100%;
-    height: 100%;
-}
-
-
-/* style.css 파일에 추가/수정 */
+/* ------------------------------------------- */
+/* 7. 유튜브 영상 관련 스타일 (최종 수정) */
+/* ------------------------------------------- */
 
 /* 영상 컨테이너 중앙 정렬 및 여백 */
 #video-container {
@@ -359,18 +284,24 @@ html, body {
     justify-content: center;
     align-items: center;
     padding: 20px;
-    min-height: 100vh;
+    min-height: 100vh; /* 화면 중앙에 위치하도록 최소 높이 설정 */
     box-sizing: border-box;
 }
 
-/* 플레이어 영역의 최대 크기 설정 (16:9 비율 유지) */
+/* 플레이어 영역의 최대 크기 설정 (16:9 비율 유지 및 반응형) */
 #player {
-    /* 🚨 크기 제한을 위한 핵심 코드 */
-    max-width: 900px; /* 원하는 최대 너비를 지정합니다. */
+    /* 🚨 영상 최대 너비 제한 (예: 900px) */
+    max-width: 900px; 
     width: 100%;
+    
+    /* 🚨 16:9 비율 유지 */
+    aspect-ratio: 16 / 9; 
     
     /* iframe을 이 영역 안에 절대적으로 배치하기 위해 relative 설정 */
     position: relative; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* 영상에 그림자 추가 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    overflow: hidden; /* iframe이 넘치는 것을 방지 */
 }
 
 /* 실제 YouTube iframe이 #player 영역 안에 꽉 차도록 설정 */
