@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인트로</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <div class="full-screen" style="display: flex; flex-direction: column; align-items: center;">
+        
+        <iframe 
+            id="smore-iframe"
+            src="https://smore.im/quiz/caojtgT35O" 
+            style="width: 100%; height: calc(100vh - 80px); border: none;"
+            allowfullscreen>
+        </iframe>
+
+        <button id="smore-next-btn" class="main-button" style="height: 70px; width: 80%; margin-top: 10px;">
+            정보 이미지 보러가기
+        </button>
+    </div>
+
+    <script>
+        document.getElementById('smore-next-btn').addEventListener('click', function() {
+            // 다음 페이지인 info_image.html로 이동합니다.
+            window.location.href = 'info_image.html';
+        });
+    </script>
+</body>
+</html>
