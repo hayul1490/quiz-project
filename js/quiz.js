@@ -2,9 +2,6 @@
 const QUIZ_TOTAL_COUNT = 20; // 📍 총 문제 수
 const LS_FINAL_SCORE = 'quizFinalScore';
 
-// 퀴즈 데이터 (실제 값은 사용자가 채워야 합니다.)
-const QUIZ_TOTAL_COUNT = 20; 
-
 const quizData = [
     {
         q: "첫 번째 사운드는 '굵은 나뭇가지가 서로 부딪히는 소리'입니다. 이 소리를 나타내는 가장 적절한 상황은 무엇일까요?",
@@ -238,4 +235,5 @@ document.addEventListener('DOMContentLoaded', () => {
         
         initQuizPage();
     }
+
 });
