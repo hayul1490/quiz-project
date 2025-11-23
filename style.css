@@ -1,121 +1,50 @@
-/* ------------------------------------------- */
-/* 1. 기본 설정 및 전역 스타일 */
-/* ------------------------------------------- */
+/* style.css 파일 내 퀴즈 관련 버튼 스타일 수정 */
 
-/* 따뜻한 베이지 색상 팔레트 정의 */
-:root {
-    --color-primary: #8B4513; /* 진한 갈색 (텍스트, 버튼 강조) */
-    --color-secondary: #B8860B; /* 황금빛 갈색 (액센트) */
-    --color-background-light: #FAF0E6; /* 연한 베이지 (전체 배경) */
-    --color-background-card: #FFFFFF; /* 카드 배경 (흰색) */
-    --color-text-dark: #444444; /* 어두운 회색 (본문 텍스트) */
-    --color-border: #D2B48C; /* 부드러운 테두리 색 */
-    --font-size-base: 1.1rem;
-}
-
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: 'Noto Sans KR', sans-serif; /* 가독성 좋은 폰트 */
-    background-color: var(--color-background-light);
-    color: var(--color-text-dark);
-    line-height: 1.6; /* 가독성을 위한 줄 간격 확보 */
-}
-
-/* 전체 화면 컨테이너 (균형 잡힌 배치) */
-.full-screen {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* ------------------------------------------- */
-/* 2. 인트로 페이지 스타일 */
-/* ------------------------------------------- */
-
-#intro-page {
-    /* 여기에 intro_bg.jpg 배경 이미지 스타일을 추가하세요. */
-    /* background-image: url('assets/images/intro_bg.jpg'); */
-    background-size: cover;
-    background-position: center;
-    /* 이미지 대신 배경색을 쓸 경우 아래를 사용 */
-    /* background-color: var(--color-background-light); */ 
-}
-
-#intro-content {
-    background: rgba(255, 255, 255, 0.9); /* 반투명 흰색 카드 배경 */
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    width: 100%;
-}
-
-#name-input {
-    padding: 12px;
-    font-size: var(--font-size-base);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    width: calc(100% - 24px); /* 패딩만큼 폭 줄이기 */
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-/* ------------------------------------------- */
-/* 3. 버튼 및 공통 위젯 스타일 */
-/* ------------------------------------------- */
-
-.main-button {
-    padding: 15px 30px;
-    font-size: var(--font-size-base);
-    background-color: var(--color-primary); /* 진한 갈색 버튼 */
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
-    font-weight: bold;
-    letter-spacing: 1px;
-    width: 100%;
-    max-width: 300px;
-    margin-top: 15px;
-}
-
-.main-button:hover {
-    background-color: var(--color-secondary); /* 황금빛 갈색으로 변경 */
-    transform: translateY(-2px);
-}
-
-.title {
-    color: var(--color-primary);
-    font-size: 2.2rem;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-/* ------------------------------------------- */
-/* 4. 퀴즈 페이지 스타일 */
-/* ------------------------------------------- */
-
+/* 퀴즈 카드 자체 크기 조정 (객체 여백을 줄이고 카드를 키움) */
 #quiz-page {
-    max-width: 700px;
+    max-width: 750px; /* 퀴즈 카드 최대 폭 증가 */
     width: 90%;
-    margin: 50px auto;
-    padding: 30px;
-    background: var(--color-background-card);
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    text-align: center; /* 중앙 정렬 */
+    margin: 40px auto; /* 상하 여백 약간 줄임 */
+    padding: 40px; /* 내부 패딩 증가 */
 }
 
-/* 문제 번호와 질문 텍스트 스타일 */
-#question-text {
-    font-size: 1.4rem;
-    margin: 20px 0 30px;
+/* 사운드 재생 버튼 (크고 예쁘게) */
+#sound-button {
+    background-color: var(--color-secondary); /* 황금빛 갈색 */
+    color: white;
+    padding: 15px 35px; /* 패딩을 늘려 버튼을 크게 만듭니다 */
+    font-size: 1.25rem; /* 폰트 크기 확대 */
+    border: none;
+    border-radius: 10px; /* 둥근 사각형 유지 */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 30px; /* 아래 여백 */
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 입체감 부여 */
+    min-width: 200px; /* 최소 폭 확보 */
+    display: block; /* 블록 요소로 만들어 중앙 정렬 용이 */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#sound-button:hover {
+    background-color: var(--color-primary);
+}
+
+/* 개별 보기 버튼 (가독성을 위해 크기 확대) */
+.option-btn {
+    padding: 20px; /* 패딩 증가 */
+    font-size: 1.15rem; /* 폰트 크기 확대 */
+    /* 나머지 디자인 속성은 기존 style.css 유지 */
+}
+
+/* 선택 완료 버튼 (가장 크고 강조되게) */
+#complete-selection-button {
+    /* .main-button 스타일을 상속 */
+    width: 100%;
+    max-width: 450px; /* 폭을 넓게 사용 */
+    padding: 22px 40px; /* 패딩을 가장 크게 늘림 */
+    font-size: 1.5rem; /* 폰트 크기 확대 */
+    margin-top: 40px; /* 윗 여백 확보 */
+    border-radius: 12px;
+}
