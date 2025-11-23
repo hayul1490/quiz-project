@@ -1,28 +1,161 @@
-/* style.css 파일 내 퀴즈 관련 버튼 스타일 수정 */
+/* ------------------------------------------- */
+/* FINAL style.css (따뜻한 계열, 고가독성, 큰 버튼 디자인) */
+/* ------------------------------------------- */
 
-/* 퀴즈 카드 자체 크기 조정 (객체 여백을 줄이고 카드를 키움) */
-#quiz-page {
-    max-width: 750px; /* 퀴즈 카드 최대 폭 증가 */
-    width: 90%;
-    margin: 40px auto; /* 상하 여백 약간 줄임 */
-    padding: 40px; /* 내부 패딩 증가 */
+/* 1. 기본 설정 및 색상 팔레트 */
+:root {
+    --color-primary: #8B4513;     /* 진한 갈색 (제목, 주요 텍스트, 버튼 강조) */
+    --color-secondary: #B8860B;   /* 황금빛 갈색 (액센트, 사운드 버튼) */
+    --color-background-light: #FAF0E6; /* 연한 베이지 (전체 배경) */
+    --color-background-card: #FFFFFF; /* 카드 배경 (흰색) */
+    --color-text-dark: #333333;   /* 매우 진한 텍스트 */
+    --color-border: #D2B48C;      /* 부드러운 테두리 색 */
+    --font-size-base: 1.15rem;
 }
 
-/* 사운드 재생 버튼 (크고 예쁘게) */
-#sound-button {
-    background-color: var(--color-secondary); /* 황금빛 갈색 */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: var(--color-background-light);
+    color: var(--color-text-dark);
+    line-height: 1.6;
+}
+
+/* 전체 화면 컨테이너 (균형 잡힌 배치) */
+.full-screen {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 2. 인트로 페이지 스타일 */
+#intro-content {
+    background: rgba(255, 255, 255, 0.95); /* 배경 불투명도 증가 */
+    padding: 50px; /* 패딩 증가 */
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    max-width: 550px; /* 폭 확대 */
+    width: 90%;
+}
+
+.title {
+    color: var(--color-primary);
+    font-size: 2.8rem; /* 제목 크기 확대 */
+    margin-bottom: 25px;
+    font-weight: 800;
+}
+
+.subtitle {
+    font-size: 1.3rem;
+    color: var(--color-text-dark);
+    margin-bottom: 30px;
+}
+
+#name-input-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    gap: 20px; /* 입력 필드와 버튼 사이 간격 확대 */
+    width: 100%;
+}
+
+#name-input {
+    padding: 15px;
+    font-size: 1.2rem;
+    border: 2px solid var(--color-border);
+    border-radius: 10px;
+    width: 90%; /* 인풋 필드 폭 넓게 사용 */
+    max-width: 400px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* 3. 공통 버튼 (시작하기, 다시 시작하기, 선택 완료) */
+.main-button {
+    padding: 20px 40px; /* 패딩을 늘려 버튼 크기 매우 확대 */
+    font-size: 1.5rem; /* 폰트 크기 확대 */
+    background-color: var(--color-primary); 
     color: white;
-    padding: 15px 35px; /* 패딩을 늘려 버튼을 크게 만듭니다 */
-    font-size: 1.25rem; /* 폰트 크기 확대 */
     border: none;
-    border-radius: 10px; /* 둥근 사각형 유지 */
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    font-weight: 800; /* 매우 두껍게 */
+    width: 90%;
+    max-width: 400px; /* 폭 넓게 사용 */
+    margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.main-button:hover:not(:disabled) {
+    background-color: var(--color-secondary);
+    transform: translateY(-2px);
+}
+
+.main-button:disabled {
+    background-color: #A9A9A9; /* 비활성화 시 회색 */
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* 4. 퀴즈 페이지 스타일 */
+#quiz-page {
+    max-width: 750px; /* 퀴즈 카드 폭 확대 */
+    width: 90%;
+    margin: 40px auto; 
+    padding: 40px;
+    background: var(--color-background-card);
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* 문제 번호와 질문 텍스트 스타일 */
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.question-header span {
+    padding: 8px 15px;
+    background-color: #f0f0e0;
+    border-radius: 20px;
+    border: 1px solid var(--color-border);
+}
+
+#question-text {
+    font-size: 1.6rem; /* 퀴즈 질문 크기 확대 */
+    margin: 25px 0 40px;
+    font-weight: 600;
+    color: var(--color-text-dark);
+}
+
+/* 사운드 재생 버튼 (크고 강조) */
+#sound-button {
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 15px 35px;
+    font-size: 1.25rem;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-bottom: 30px; /* 아래 여백 */
+    margin-bottom: 30px;
     font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 입체감 부여 */
-    min-width: 200px; /* 최소 폭 확보 */
-    display: block; /* 블록 요소로 만들어 중앙 정렬 용이 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    min-width: 200px; 
+    display: block; 
     margin-left: auto;
     margin-right: auto;
 }
@@ -31,20 +164,109 @@
     background-color: var(--color-primary);
 }
 
-/* 개별 보기 버튼 (가독성을 위해 크기 확대) */
+/* 보기 옵션 컨테이너 */
+#options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 버튼 사이 간격 확대 */
+    margin-bottom: 25px;
+}
+
+/* 개별 보기 버튼 */
 .option-btn {
     padding: 20px; /* 패딩 증가 */
     font-size: 1.15rem; /* 폰트 크기 확대 */
-    /* 나머지 디자인 속성은 기존 style.css 유지 */
+    background-color: var(--color-background-light); 
+    color: var(--color-text-dark);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-/* 선택 완료 버튼 (가장 크고 강조되게) */
+.option-btn:hover {
+    background-color: #f7e6d7;
+}
+
+.option-btn.selected {
+    background-color: #FFF8E1; 
+    border: 2px solid var(--color-secondary); 
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+/* 선택 완료 버튼 - main-button 스타일 상속, 추가 크기 조정 */
 #complete-selection-button {
-    /* .main-button 스타일을 상속 */
     width: 100%;
-    max-width: 450px; /* 폭을 넓게 사용 */
-    padding: 22px 40px; /* 패딩을 가장 크게 늘림 */
-    font-size: 1.5rem; /* 폰트 크기 확대 */
-    margin-top: 40px; /* 윗 여백 확보 */
-    border-radius: 12px;
+    max-width: 450px;
+    margin-top: 40px; 
+}
+
+/* 5. 아웃트로 (결과/랭킹) 페이지 스타일 */
+#outro-content {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    max-width: 650px; /* 랭킹 컨테이너 폭 조절 */
+    width: 90%;
+    margin: auto;
+}
+
+.result-text {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.section-title {
+    color: var(--color-primary);
+    font-size: 2rem;
+    margin-top: 40px;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+/* 랭킹 테이블 */
+#ranking-table {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--color-background-light); /* 테이블 배경색 변경 */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#ranking-table th, #ranking-table td {
+    padding: 15px;
+    text-align: center; /* 테이블 내용 중앙 정렬 */
+    border-bottom: 1px solid var(--color-border);
+    font-size: 1.05rem;
+}
+
+#ranking-table th {
+    background-color: var(--color-secondary);
+    color: white;
+    font-weight: 600;
+}
+
+/* 6. 미디어 쿼리 (반응형 디자인) */
+@media (max-width: 768px) {
+    .title { font-size: 2.2rem; }
+    .main-button { padding: 18px 30px; font-size: 1.3rem; max-width: 100%; }
+    #intro-content, #outro-content { padding: 30px; }
+    #quiz-page { padding: 30px; }
+    #question-text { font-size: 1.4rem; }
+    .option-btn { padding: 15px; font-size: 1rem; }
+}
+
+@media (max-width: 480px) {
+    .title { font-size: 1.8rem; }
+    .subtitle { font-size: 1.1rem; }
+    .main-button { font-size: 1.2rem; }
+    #ranking-table th, #ranking-table td { padding: 10px; font-size: 0.9rem; }
 }
