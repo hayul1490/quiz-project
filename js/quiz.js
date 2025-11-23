@@ -1,5 +1,6 @@
 // js/quiz.js 상단
 const QUIZ_TOTAL_COUNT = 20; // 📍 총 문제 수
+let currentAudio = null; // 📍 현재 재생 중인 오디오 객체를 저장할 변수
 // const YOUTUBE_VIDEO_ID_2 = "2xxNtPi_-Sw"; // 📍 이 줄을 제거하세요. (main.js에서만 정의)
 const LS_USER_NAME = 'quizUserName'; 
 const LS_START_TIME = 'quizStartTime';
@@ -159,6 +160,12 @@ function initQuizPage() {
 // -------------------- 퀴즈 로드 및 UI 업데이트 --------------------
 
 function loadQuiz(index) {
+    // 🚨 [수정] 퀴즈가 로드될 때 이전 오디오를 정지시켜야 합니다.
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+    }
+    
     // 퀴즈 완료 조건 검사
     if (index >= QUIZ_TOTAL_COUNT) {
         // 1. 퀴즈가 모두 끝났을 경우
@@ -209,10 +216,20 @@ return; // 함수 종료
 
 // js/quiz.js
 function playCurrentSound() {
-    // 💡 프로젝트 폴더명('quiz-project')을 명시하여 절대 경로 지정
-    const soundPath = `/quiz-project/assets/sounds/${quizData[currentQuizIndex].sound}`;
+    // 1. 이전 오디오가 있다면 정지
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+    }
     
+    // 2. 새 오디오 객체 생성
+    const soundPath = `/quiz-project/assets/sounds/${quizData[currentQuizIndex].sound}`;
     const audio = new Audio(soundPath);
+    
+    // 3. 새 오디오 객체를 전역 변수에 저장
+    currentAudio = audio;
+
+    // 4. 재생 시도
     audio.play().catch(e => console.error("Sound play failed:", e));
 }
 
@@ -263,6 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initQuizPage();
     }
 });
+
 
 
 
