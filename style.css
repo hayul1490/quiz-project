@@ -348,3 +348,37 @@ html, body {
     width: 100%;
     height: 100%;
 }
+
+
+/* style.css 파일에 추가/수정 */
+
+/* 영상 컨테이너 중앙 정렬 및 여백 */
+#video-container {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* 플레이어 영역의 최대 크기 설정 (16:9 비율 유지) */
+#player {
+    /* 🚨 크기 제한을 위한 핵심 코드 */
+    max-width: 900px; /* 원하는 최대 너비를 지정합니다. */
+    width: 100%;
+    
+    /* iframe을 이 영역 안에 절대적으로 배치하기 위해 relative 설정 */
+    position: relative; 
+}
+
+/* 실제 YouTube iframe이 #player 영역 안에 꽉 차도록 설정 */
+#player iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
