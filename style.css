@@ -1,0 +1,231 @@
+/* style.css */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body, html {
+    width: 100%;
+    min-height: 100vh;
+    color: #333;
+    line-height: 1.6;
+    background-color: #f4f4f9;
+}
+
+/* -------------------- 공통 스타일 -------------------- */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.full-screen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.1s;
+    background-color: #007bff;
+    color: white;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+/* -------------------- index.html 스타일 -------------------- */
+#intro-page {
+    background-image: url('assets/images/intro_bg.jpg'); /* 📍 내가 넣을 이미지 경로 */
+    flex-direction: column;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+#intro-page button {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #007bff;
+    font-weight: bold;
+    border: 2px solid #007bff;
+    margin-top: 20px;
+}
+
+#name-input-container {
+    display: none;
+    flex-direction: column;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #333;
+}
+
+#userName {
+    padding: 10px;
+    margin: 10px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 300px;
+}
+
+/* -------------------- quiz.html 스타일 -------------------- */
+#quiz-page .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+}
+
+#quiz-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#question-text {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+#sound-btn {
+    background-color: #28a745;
+    padding: 10px 15px;
+}
+
+#sound-btn:hover {
+    background-color: #1e7e34;
+}
+
+#options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.option-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #e9ecef;
+    color: #333;
+    border: 2px solid #e9ecef;
+    text-align: left;
+    transition: all 0.2s;
+}
+
+.option-btn.selected {
+    border: 3px solid #ffc107; /* 선택된 버튼 테두리 강조 */
+    background-color: #fff3cd;
+    color: #856404;
+    font-weight: bold;
+}
+
+.option-btn:not(.selected):hover {
+    background-color: #dee2e6;
+}
+
+/* -------------------- video/image 페이지 공통 -------------------- */
+.video-container {
+    max-width: 800px;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+
+#player {
+    width: 100%;
+    height: 100%;
+}
+
+/* -------------------- info_image.html 스타일 -------------------- */
+#info-page {
+    background-image: url('assets/images/info_img.jpg'); /* 📍 내가 넣을 이미지 경로 */
+    cursor: pointer;
+}
+
+/* -------------------- outro.html 스타일 -------------------- */
+#outro-page {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+#outro-page h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #dc3545;
+}
+
+#result-summary p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+#ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+#ranking-table th, #ranking-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+#ranking-table th {
+    background-color: #6c757d;
+    color: white;
+    font-weight: bold;
+}
+
+#ranking-table tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+#ranking-table tr:hover {
+    background-color: #e2e6ea;
+}
+
+/* -------------------- 반응형 (선택 사항) -------------------- */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+    }
+    .container {
+        padding: 10px;
+    }
+    .option-btn {
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+    #ranking-table th, #ranking-table td {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+}
