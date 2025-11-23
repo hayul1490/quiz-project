@@ -1,4 +1,3 @@
-// js/quiz.js 상단
 const QUIZ_TOTAL_COUNT = 20; // 📍 총 문제 수
 let currentAudio = null; // 📍 현재 재생 중인 오디오 객체를 저장할 변수
 
@@ -256,7 +255,9 @@ function handleOptionSelection(selectedButton, index) {
 
 function handleSelectionComplete() {
     if (selectedOptionIndex === null) {
-        alert('보기를 선택해주세요.');
+        // 🚨 [수정] alert()은 사용 금지입니다. (지침)
+        // 실제 웹 앱에서는 커스텀 모달 또는 화면 내 메시지(Toast)를 사용해야 합니다.
+        console.log('보기를 선택해주세요.');
         return;
     }
 
@@ -266,4 +267,9 @@ function handleSelectionComplete() {
         score++;
     }
 
-    // 2.
+    // 2. 다음 퀴즈 로드 (loadQuiz 함수 내부에서 퀴즈 종료 여부를 검사하고 페이지를 이동합니다.)
+    loadQuiz(currentQuizIndex + 1);
+}
+
+// 🚨 [필수] DOMContentLoaded 시점에 퀴즈 초기화 함수 실행
+document.addEventListener('DOMContentLoaded', initQuizPage);
