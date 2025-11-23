@@ -209,10 +209,10 @@ return; // 함수 종료
 
 // js/quiz.js
 function playCurrentSound() {
-    // 🚨 경로 앞에 슬래시(/)를 추가하여 루트 경로(quiz-project/)에서 시작하도록 수정
-    const soundPath = `/assets/sounds/${quizData[currentQuizIndex].sound}`;
+    // 💡 프로젝트 폴더명('quiz-project')을 명시하여 절대 경로 지정
+    const soundPath = `/quiz-project/assets/sounds/${quizData[currentQuizIndex].sound}`;
+    
     const audio = new Audio(soundPath);
-    // 버튼 UI 업데이트는 선택 사항입니다. 간단히 소리만 재생합니다.
     audio.play().catch(e => console.error("Sound play failed:", e));
 }
 
@@ -263,5 +263,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initQuizPage();
     }
 });
+
 
 
