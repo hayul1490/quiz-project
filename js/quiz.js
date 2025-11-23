@@ -169,8 +169,8 @@ function loadQuiz(index) {
 
         // 2. 퀴즈 종료 후, 2번 유튜브 영상(YOUTUBE_VIDEO_ID_2)을 재생하는 페이지로 이동합니다.
         //    영상 재생 후 3초 뒤에 'outro.html' (결과 페이지)로 넘어가도록 경로를 지정합니다.
-        window.location.href = `result_video.html?videoId=${YOUTUBE_VIDEO_ID_2}&nextPage=outro.html`;
-        return; // 함수 종료
+        window.location.href = `result_video.html?video=result&nextPage=outro.html`;
+return; // 함수 종료
     }
     
     const currentQuiz = quizData[index];
@@ -262,3 +262,4 @@ document.addEventListener('DOMContentLoaded', () => {
         initQuizPage();
     }
 });
+
