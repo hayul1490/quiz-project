@@ -6,31 +6,48 @@
     <title>영상 재생</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* 비디오 플레이어를 중앙에 배치하고 화면에 꽉 차게 보이도록 하는 CSS */
+        #video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+        }
+        #player {
+            /* 영상이 화면에 적절히 맞게 조정 */
+            max-width: 100%;
+            max-height: 100%;
+            aspect-ratio: 16 / 9; /* 16:9 비율 유지 */
+        }
+    </style>
 </head>
 <body>
-    <div class="full-screen" style="padding: 0;">
+    <div id="video-container">
         <div id="player"></div>
     </div>
 
     <script src="js/main.js"></script>
+
     <script>
-        // YouTube Player API를 비동기적으로 로드합니다.
+        // 1. YouTube Player API 비동기적으로 로드
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         var player;
-        function onYouTubeIframeAPIReady() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const videoId = urlParams.get('videoId'); // main.js에서 전달받은 videoId
-            const nextPage = urlParams.get('nextPage'); // main.js에서 전달받은 nextPage
 
-            if (!videoId) {
-                console.error("Video ID가 전달되지 않았습니다.");
-                // 비디오 ID가 없으면 바로 다음 페이지로 이동하거나 오류 메시지 표시
-                window.location.href = nextPage || 'index.html'; // 기본값 설정
-                return;
+        // 2. API 코드 다운로드 완료 시 onYouTubeIframeAPIReady 함수 호출
+        function onYouTubeIframeAPIReady() {
+            const videoQueryParam = getQueryParam('video');
+            let videoId = YOUTUBE_VIDEO_ID_1; // 기본값은 인트로 후 영상
+
+            // 쿼리 파라미터에 따라 사용할 영상 ID 결정
+            if (videoQueryParam === 'result') {
+                videoId = YOUTUBE_VIDEO_ID_2; // 퀴즈 결과 후 영상
             }
 
             player = new YT.Player('player', {
@@ -39,8 +56,9 @@
                 videoId: videoId,
                 playerVars: {
                     'autoplay': 1,      // 자동 재생
-                    'controls': 1,      // 플레이어 컨트롤 표시
-                    'modestbranding': 1 // YouTube 로고 숨기기
+                    'controls': 1,      // 컨트롤 표시
+                    'modestbranding': 1, // YouTube 로고 축소
+                    'rel': 0            // 관련 동영상 표시 안 함
                 },
                 events: {
                     'onReady': onPlayerReady,
@@ -49,22 +67,11 @@
             });
         }
 
+        // 3. 플레이어 준비 완료 시 자동 재생 시작
         function onPlayerReady(event) {
             event.target.playVideo();
         }
 
+        // 4. 플레이어 상태 변경 시 호출 (핵심 로직)
         function onPlayerStateChange(event) {
-            // 영상이 끝났을 때 (state === 0)
-            if (event.data == YT.PlayerState.ENDED) {
-                const urlParams = new URLSearchParams(window.location.search);
-                const nextPage = urlParams.get('nextPage'); 
-                
-                // 영상 종료 후 3초 뒤에 다음 페이지로 이동
-                setTimeout(() => {
-                    window.location.href = nextPage || 'index.html'; // 기본값 설정
-                }, 3000); 
-            }
-        }
-    </script>
-</body>
-</html>
+            // 상태 코드가 0 (YT.PlayerState.ENDED)이면
