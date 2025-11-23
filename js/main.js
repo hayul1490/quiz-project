@@ -101,19 +101,26 @@ function loadAndDisplayRanking() {
         time: elapsedTimeMs
     };
     
-    // 🚨 [수정된 로직] 중복 확인 및 최고 기록 업데이트
+    // 🚨 [수정된 핵심] 랭킹에 최종적으로 반영된 기록 (최고 기록)을 저장할 변수
+    let finalRankedEntry = newEntry; 
+
     const existingIndex = rankingData.findIndex(item => item.name === userName);
 
     if (existingIndex > -1) {
         const existingEntry = rankingData[existingIndex];
-        // 점수가 더 높거나, 점수는 같지만 시간이 더 짧은 경우에만 업데이트
+        // 점수가 더 높거나, 점수는 같지만 시간이 더 짧은 경우에만 업데이트 (최고 기록 갱신)
         if (finalScore > existingEntry.score || 
             (finalScore === existingEntry.score && elapsedTimeMs < existingEntry.time)) {
-            rankingData[existingIndex] = newEntry; // 더 좋은 기록으로 업데이트
+            rankingData[existingIndex] = newEntry; // 💥 최고 기록으로 업데이트
+            finalRankedEntry = newEntry; // 갱신된 새 기록을 최종 기록으로 설정
+        } else {
+            // 최고 기록 갱신 실패. 기존 최고 기록을 최종 기록으로 설정
+            finalRankedEntry = existingEntry; 
         }
     } else {
         // 존재하지 않는 경우: 새로운 항목으로 추가
         rankingData.push(newEntry);
+        finalRankedEntry = newEntry; 
     }
 
     // 5. 랭킹 정렬 (점수 내림차순, 시간이 짧은 순으로 오름차순)
@@ -143,9 +150,10 @@ function loadAndDisplayRanking() {
             // 시간
             row.insertCell().textContent = formatTime(item.time);
 
-            // 현재 사용자 강조
-            if (item.name === userName && item.time === elapsedTimeMs) {
-                row.style.backgroundColor = '#FFF8E1'; 
+            // 🚨 [최종 수정] 랭킹에 반영된 최종 기록과 일치할 때 강조
+            // 이름과 시간(최고 기록의 시간)을 비교하여 해당 사용자의 최고 기록을 강조합니다.
+            if (item.name === finalRankedEntry.name && item.time === finalRankedEntry.time) {
+                row.style.backgroundColor = '#FFF8E1'; // 현재 반영된 최고 기록 강조
             }
         });
     }
@@ -181,3 +189,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
