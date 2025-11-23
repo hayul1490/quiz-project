@@ -318,3 +318,33 @@ html, body {
     cursor: not-allowed;
     box-shadow: none;
 }
+
+/* style.css 파일에 추가 */
+
+#video-container {
+    /* 화면 전체를 덮지 않도록 중앙 정렬 및 패딩 추가 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* 주변 여백 */
+    /* 필요하다면 최소 높이를 설정할 수 있습니다. */
+    min-height: 100vh; 
+}
+
+#player {
+    /* 영상이 표시될 영역의 최대 크기 설정 */
+    max-width: 800px; /* 예시: 최대 너비를 800px로 제한 */
+    width: 100%; /* 부모(video-container) 너비 내에서 100% 사용 */
+    /* 16:9 비율 유지를 위한 패딩 트릭 */
+    aspect-ratio: 16 / 9; /* 최신 브라우저 지원 (권장) */
+    /* 또는 구형 브라우저 지원을 위해 padding-bottom 사용:
+    padding-bottom: 56.25%; /* 16:9 비율 (9/16 = 0.5625) */
+    /* height: 0; 
+    position: relative; */
+}
+
+/* YouTube 플레이어가 실제로 들어가는 iframe이나 div */
+#player iframe, #player div {
+    width: 100%;
+    height: 100%;
+}
