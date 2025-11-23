@@ -2,8 +2,8 @@ const QUIZ_TOTAL_COUNT = 20; // 📍 총 문제 수
 let currentAudio = null; // 📍 현재 재생 중인 오디오 객체를 저장할 변수
 
 // 로컬 스토리지 키 (main.js에서 가져와 사용)
-const LS_USER_NAME = 'quizUserName'; 
-const LS_START_TIME = 'quizStartTime';
+// const LS_USER_NAME = 'quizUserName'; 
+// const LS_START_TIME = 'quizStartTime';
 
 // 🚨 [필수 확인] YouTube ID를 직접 사용 (ReferenceError 해결)
 const FINAL_VIDEO_ID = "DvP6qr1u5ac"; // main.js에서 가져온 ID를 직접 사용
@@ -273,3 +273,4 @@ function handleSelectionComplete() {
 
 // 🚨 [필수] DOMContentLoaded 시점에 퀴즈 초기화 함수 실행
 document.addEventListener('DOMContentLoaded', initQuizPage);
+
