@@ -5,16 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>영상 재생</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="video-page" class="full-screen" style="flex-direction: column;">
-        <h1>잠시만 기다려주세요!</h1>
-        <div class="video-container">
-            <div id="player"></div>
-        </div>
-        <p style="margin-top: 20px;">영상이 끝나면 자동으로 다음 페이지로 이동합니다 (3초 후).</p>
+    <div class="full-screen" style="padding: 0;">
+        <div id="player"></div>
     </div>
 
     <script src="js/main.js"></script>
+    <script>
+        // YouTube Player API를 비동기적으로 로드합니다.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const videoId = urlParams.get('videoId'); // main.js에서 전달받은 videoId
+            const nextPage = urlParams.get('nextPage'); // main.js에서 전달받은 nextPage
+
+            if (!videoId) {
+                console.error("Video ID가 전달되지 않았습니다.");
+                // 비디오 ID가 없으면 바로 다음 페이지로 이동하거나 오류 메시지 표시
+                window.location.href = nextPage || 'index.html'; // 기본값 설정
+                return;
+            }
+
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'autoplay': 1,      // 자동 재생
+                    'controls': 1,      // 플레이어 컨트롤 표시
+                    'modestbranding': 1 // YouTube 로고 숨기기
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        function onPlayerStateChange(event) {
+            // 영상이 끝났을 때 (state === 0)
+            if (event.data == YT.PlayerState.ENDED) {
+                const urlParams = new URLSearchParams(window.location.search);
+                const nextPage = urlParams.get('nextPage'); 
+                
+                // 영상 종료 후 3초 뒤에 다음 페이지로 이동
+                setTimeout(() => {
+                    window.location.href = nextPage || 'index.html'; // 기본값 설정
+                }, 3000); 
+            }
+        }
+    </script>
 </body>
 </html>
