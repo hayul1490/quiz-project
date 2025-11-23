@@ -98,8 +98,20 @@ function loadAndDisplayRanking() {
         score: finalScore,
         time: elapsedTimeMs
     };
-    
+
+    const existingIndex = rankingData.findIndex(item => item.name === userName);
+
+    if (existingIndex > -1) {
+    // 이미 존재하는 경우: 더 좋은 기록이면 업데이트 (점수가 높고, 점수가 같으면 시간이 짧은 경우)
+    const existingEntry = rankingData[existingIndex];
+    if (finalScore > existingEntry.score || 
+        (finalScore === existingEntry.score && elapsedTimeMs < existingEntry.time)) {
+        rankingData[existingIndex] = newEntry; // 더 좋은 기록으로 업데이트
+    }
+} else {
+    // 존재하지 않는 경우: 새로운 항목으로 추가
     rankingData.push(newEntry);
+}
 
     // 5. 랭킹 정렬 (점수 내림차순, 시간이 짧은 순으로 오름차순)
     rankingData.sort((a, b) => {
@@ -174,5 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 
 
