@@ -199,10 +199,21 @@ html, body {
 
 /* 선택 완료 버튼 - main-button 스타일 상속, 추가 크기 조정 */
 #complete-selection-button {
-    /* main-button 스타일을 상속받으므로 여기서 추가적인 스타일만 정의 */
-    width: 100%;
-    max-width: 450px;
-    margin-top: 40px; 
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 15px 35px;
+    font-size: 1.25rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 30px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    min-width: 200px; 
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -303,4 +314,5 @@ html, body {
     border-radius: 10px; /* 모서리 둥글게 */
     overflow: hidden; /* iframe이 넘치는 것을 방지 */
 }
+
 
