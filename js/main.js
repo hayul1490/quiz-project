@@ -60,7 +60,7 @@ function initIntroPage() {
             localStorage.setItem(LS_START_TIME, Date.now());
 
             // 다음 페이지로 이동
-            window.location.href = `result_video.html?video_id=${YOUTUBE_VIDEO_ID_1}&next_page=quiz.html`;
+            window.location.href = 'smore_intro.html';
         };
     }
 }
@@ -131,4 +131,5 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
     // quiz.js와 outro.js에서 각 페이지를 초기화합니다.
+
 });
