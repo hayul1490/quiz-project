@@ -270,3 +270,51 @@ html, body {
     .main-button { font-size: 1.2rem; }
     #ranking-table th, #ranking-table td { padding: 10px; font-size: 0.9rem; }
 }
+
+/* style.css 파일에 추가/수정 */
+
+/* 전역 버튼 스타일 통일 (main-button, sound-button, complete-button에 적용) */
+.main-button,
+#sound-button,
+#complete-selection-button {
+    /* 퀴즈 시작하기 버튼과 동일한 배경색, 글꼴, 크기 등을 적용 */
+    background-color: #ffc107; /* 예시로 노란색 계열 사용 */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%; /* 너비를 넓게 설정 */
+    margin: 10px auto; /* 중앙 정렬 및 간격 */
+    display: block;
+}
+
+.main-button:hover,
+#sound-button:hover,
+#complete-selection-button:hover:not(:disabled) {
+    background-color: #e0a800; /* 호버 시 색상 어둡게 */
+}
+
+/* 사운드 재생 버튼 (Quiz.html) */
+#sound-button {
+    background-color: #6c757d; /* 사운드 버튼은 다른 색상 사용 (회색 계열) */
+    font-size: 1em;
+    padding: 8px 15px;
+    width: auto; /* 너비 자동 설정 */
+    display: inline-block;
+}
+#sound-button:hover {
+    background-color: #5a6268;
+}
+
+
+/* 선택 완료 버튼 (Quiz.html) */
+#complete-selection-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
