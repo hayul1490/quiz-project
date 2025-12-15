@@ -1,6 +1,6 @@
 // js/main.js
-const YOUTUBE_VIDEO_ID_1 = "DvP6qr1u5ac"; // 📍 인트로 후 재생할 유튜브 영상 ID (유효 ID 적용)
-const YOUTUBE_VIDEO_ID_2 = "DvP6qr1u5ac"; // 📍 퀴즈 결과 후 재생할 유튜브 영상 ID (유효 ID 적용)
+const YOUTUBE_VIDEO_ID_1 = "pjhfwvv8aBg"; // 📍 인트로 후 재생할 유튜브 영상 ID (유효 ID 적용)
+const YOUTUBE_VIDEO_ID_2 = "pjhfwvv8aBg"; // 📍 퀴즈 결과 후 재생할 유튜브 영상 ID (유효 ID 적용)
 
 // 로컬 스토리지 키 (다른 파일과 중복 선언 금지)
 const LS_USER_NAME = 'quizUserName';
@@ -189,4 +189,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 
